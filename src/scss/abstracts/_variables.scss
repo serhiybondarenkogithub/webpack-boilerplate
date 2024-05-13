@@ -1,0 +1,20 @@
+$g-main-font: "Inter";
+
+$g-color-common: #ffffff;
+
+$g-color-primary: #ec1d24;
+$g-color-primary-hover: darken($g-color-primary, 10%);
+$g-color-primary-active: darken($g-color-primary, 20%);
+$g-color-primary-dark: #2F4F4F;
+
+$g-color-secondary: 	#323E52;
+$g-color-secondary-light: #dcdcdc;
+$g-color-secondary-dark: #282828;
+
+$g-color-error: #df1818;
+
+$g-color-highlight: #EFEFEF;
+
+$g-color-text-primary: #181818;
+
+$g-animation-speed: 0.5s;

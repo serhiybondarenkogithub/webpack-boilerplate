@@ -1,0 +1,33 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+:root {
+    scroll-behavior: smooth;
+}
+
+html {
+    //this defines what 1rem is
+    font-size: 62.5%;
+
+    @include respond(tab-land) {
+        font-size: 56.25%;
+    }
+
+    @include respond(desktop-large) {
+        font-size: 62.5%;
+    }
+}
+
+body {
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: $g-main-font;
+    color: $g-color-text-primary;
+    position: relative;
+    -webkit-text-size-adjust: 100%;
+}

@@ -1,0 +1,80 @@
+/*
+* Sass functions forked from https://github.com/Threespot/frontline-sass/blob/3a7c6de247bb031eeb437846c0c53758dc4c31ec/src/functions/_svg-url.scss
+*/
+
+/**
+* List of all the SVG icons of the project
+*/
+$svg-icons: (
+    dropdown:
+        '<svg width="6" height="3" viewBox="0 0 6 3" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3L6 0L0 -2.62268e-07L3 3Z" fill="#224A68"/></svg>',
+    );
+
+/**
+* Characters to escape from SVGs
+* Source: https://github.com/Threespot/frontline-sass/blob/master/src/variables/_escape-chars.scss
+*/
+$fs-escape-chars: (
+    " ": "%20",
+    "'": "%22",
+    '"': "%27",
+    "#": "%23",
+    "/": "%2F",
+    ":": "%3A",
+    "(": "%28",
+    ")": "%29",
+    "%": "%25",
+    "<": "%3C",
+    ">": "%3E",
+    "\\":"%5C",
+    "^": "%5E",
+    "{": "%7B",
+    "|": "%7C",
+    "}": "%7D",
+);
+
+/**
+ * Helper to get URL-escaped inline SVG code
+ */
+@function svg($name) {
+    // Check if icon exists
+    @if not map-has-key($svg-icons, $name) {
+        @error 'icon “#{$name}” does not exists in $svg-icons map';
+        @return false;
+    }
+
+    // Get icon data
+    $icon-map: map-get($svg-icons, $name);
+
+    $escaped-string: "";
+    $unquote-icon: unquote($icon-map);
+
+    // Loop through each character in string
+    @for $i from 1 through str-length($unquote-icon) {
+        $char: str-slice($unquote-icon, $i, $i);
+
+        // Check if character is in symbol map
+        $char-lookup: map-get($fs-escape-chars, $char);
+
+        // If it is, use escaped version
+        @if $char-lookup !=null {
+            $char: $char-lookup;
+        }
+
+        // Append character to escaped string
+        $escaped-string: $escaped-string + $char;
+    }
+
+    // Return inline SVG data
+    @return url("data:image/svg+xml, #{$escaped-string} ");
+}
+
+/**
+ * Convert all icons into custom properties
+ */
+
+:root {
+    @each $name, $code in $svg-icons {
+        --svg-#{$name}: #{svg($name)};
+    }
+}
